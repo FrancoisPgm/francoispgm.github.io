@@ -1,6 +1,6 @@
 ---
 layout: page
-title: I - Principe
+title: II - Applications
 ---
 
 <p class="message">
