@@ -88,7 +88,7 @@ Aux vues de ces avantages, il semble bien que les GANs annoncent de grands progr
 
 ### Un processus instable
 
-La force des GANs vient de la saine compétition entre le faussaie et le détective, qui permet à chacun de progresser en s'appuyant sur la réussite de l'autre. Cependant pour que cette compétition se déroule réellement de cette façon, il faut que chaque réseau progresse au même rythme. En effet dans le cas où un des deux réseau se met à progresser plus rapidement que l'autre, l'écart va se creuser et ce réseau va finir par écraser l'autre sans que ce dernier puisse rattraper son retard.
+La force des GANs vient de la saine compétition entre le faussaire et le détective, qui permet à chacun de progresser en s'appuyant sur la réussite de l'autre. Cependant pour que cette compétition se déroule réellement de cette façon, il faut que chaque réseau progresse au même rythme. En effet dans le cas où un des deux réseau se met à progresser plus rapidement que l'autre, l'écart va se creuser et ce réseau va finir par écraser l'autre sans que ce dernier puisse rattraper son retard.
 Il faut donc contrôler que la progression de chaque réseau afin d'éviter une situation de domination d'un réseau sur l'autre.
 
 ### Ne fonctionne que sur de faibles résolutions
