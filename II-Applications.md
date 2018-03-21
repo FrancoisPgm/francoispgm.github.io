@@ -3,28 +3,33 @@ layout: page
 title: II - Applications
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+Les GANs ont beau être assez récent, les applications faites sont déjà très variées. Elles restent cependant du domainde de la recherche et ne sont pas encore déployées dans l'industrie, en partie à cause de la difficulté à gérer des données complexes comme les images de haute résolution. Voici donc un éventail d'applications possibles des GANs.
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+## Image enhancement
 
-There are currently two themes built on Poole:
+Un intérêt de la génération de données est de partir de données corrompues ou de mauvaise qualité et essayer de retrouver des données de bonne qualité. C'est ici ce que fait Mike Swarbrick en entraînant un *deep convolutional GANs* (dcGANs) qui part d'une image de basse résolution, trouve le vecteur latent qui lui correspond grâce à un réseau encodeur et génère une image de plus haute résolution à partir de ce vecteur latent. L'image doit donc correspondre à celle de basse résolution mais en ajoutant des détails. On peut voir ci-dessous les résultats obtenus (avec à chaque fois l'image de départ en HD à gauche, l'image en basse qualité au milieu et à droite l'image générée par le réseau à partir de l'image de basse qualité).
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+![image enhancement](/public/images/enhancement.png)
+<em>Résultats du réseau d'image enhancement</em>
 
-Learn more and contribute on [GitHub](https://github.com/poole).
+Le code est disponible dans [ce repo github](https://github.com/mikesj-public/dcgan-autoencoder).
 
-## Setup
+## Image inpainting
 
-Some fun facts about the setup of this project include:
+Dans la même idée d'améliorer des données de mauvaise qualité, Yeh, Chen et al proposent un réseau permettant de compler les pixels manquant dans une image. On peut voir sur la figure des résultats ci-dessous qu'il suffit de très peu de pixels pour retrouver une image.
 
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
+![image inpainting](/public/images/inpainting.png)
+<em>Résultats du réseau d'image inpainting</em>
 
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
+L'article présentant le réseau est disponible [ici](https://arxiv.org/pdf/1607.07539.pdf).
 
-Thanks for reading!
+## Face aging
+
+On reste dans la modification d'image mais cette fois ce n'est pas simplement la qualité de l'image que l'on veut changer, on désire effectuer des transfirmations sémantiques sur l'image, donc sur le sens de ce qu'elle représente. Ici Antipov et al proposent un réseau capable de modifier l'âge d'un visage sur une image. Le réseau va donc trouver le vecteir latent correspondant à l'image de départ, puis l'utiliser en lui ajoutant une condition sur son âge pour générer une nouvelle image avec un âge différent. Le réseau vérifie également que l'image de sortie ne s'éloigne pas trop de l'image de départ afin de ne pas perdre l'identité du visage et générer un visage effectivement plus vieux mais non ressemblant.
+
+![face aging](/public/images/aging.png)
+<em>Résultats du réseau de face aging</em>
+
+L'article présentant le réseau est disponible [ici](https://arxiv.org/pdf/1607.07539.pdf).
+
+## Image to image translation

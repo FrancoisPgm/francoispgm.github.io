@@ -39,5 +39,5 @@ Cette incursion des machines au sein des caractéristiques "propres à l'humain"
 Se pourrait-il que les GANs soient une étape vers la création d'une conscience artificielle, et que grâce à eux on sache un jour si les androïdes rêvent de moutons électriques ?
 
 <div  align="center">
-<img src="/public/images/electric_sheep.jpg" alt="electric_sheep" style="width: 330px;"/>
+<img src="/public/images/electric_sheep2.png" alt="electric_sheep" style="width: 330px;"/>
 </div>
