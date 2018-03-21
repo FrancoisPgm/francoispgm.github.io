@@ -14,7 +14,7 @@ En effet pouvoir générer des données artificielles mais réalistes sous tous 
 <img src="/public/images/data.jpg" alt="data" style="width: 360px;"/>
 </div>
 
-Une fois ces considérations morales passées, on peut s'attarder sur une opportunité plus techniques qu'offrent la possibilité de générer des données de façon quasi illimitée. Cette opportunité repose sur le besoin de données que présentent tout procédé de machine learning. Un facteur limitant du développement d'algorithme toujours plus intelligent étant la quantité de données disponibles, on peut imaginer repousser la limite en utilisant les données générées par des GANs pour entraîner d'autres réseaux. Ainsi à partir d'une base de données on pourra entrainer un GANs qui complètera la base avec autant de nouvelles données similaires nécessaires et ainsi on multiplie les données disponibles pour entraîner n'importe quel type de réseau. Cela annonce alors une éventuelle accélération exponentielle des performances des réseaux.
+Une fois ces considérations morales passées, on peut s'attarder sur une opportunité plus techniques qu'offrent la possibilité de générer des données de façon quasi illimitée. Cette opportunité repose sur le besoin de données que présentent tout procédé de machine learning. Un facteur limitant du développement d'algorithme toujours plus intelligent étant la quantité de données disponibles, on peut imaginer repousser la limite en utilisant les données générées par des GANs pour entraîner d'autres réseaux. Ainsi à partir d'une base de données on pourra entrainer un GANs qui complètera la base avec autant de nouvelles données similaires nécessaires et ainsi on multiplie les données disponibles pour entraîner n'importe quel type de réseau. Cela annonce alors une éventuelle accélération exponentielle des performances des réseaux. De plus les données venant des GANs présentent un avantage non négligeable pour leur exploitation : elle ne viennent pas d'humains. Cela paraît une bête totologie mais ce que cela implique c'est que ces données sont totalement anonymes puisque générées par personne (ou en tout cas par aucune peronne au sens juridique). Entraîner un GANs à générer des données semblables à celles d'utilisateurs réelles permet de travailler avec des données vraissemblables mais totalement anonymes.
 
 ## La compréhension des machines
 
@@ -39,5 +39,5 @@ Cette incursion des machines au sein des caractéristiques "propres à l'humain"
 Se pourrait-il que les GANs soient une étape vers la création d'une conscience artificielle, et que grâce à eux on sache un jour si les androïdes rêvent de moutons électriques ?
 
 <div  align="center">
-<img src="/public/images/electric_sheep2.png" alt="electric_sheep" style="width: 330px;"/>
+<img src="/public/images/electric_sheep.png" alt="electric_sheep" style="width: 330px;"/>
 </div>
