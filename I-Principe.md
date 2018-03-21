@@ -33,9 +33,53 @@ L'objectif de l'auto-encodeur est donc de trouver un encodage, une projection da
 
 ## Adversaires
 
-Notre architecture de GANs est donc constituée d'un réseau génératif **G**, produisant des données à partir d'un vecteur aléatoire du *latent space* et d'un réseau classifieur **D** prenant en entrée une donnée et en sortie nous donne un label correspondant à la classe de l'objet. Il nous reste à voir le processus d'apprentissage, et c'est là que l'adjectif *adversarial* va prendre sens. En effet le principe innovant des GANs réside dans le fait que l'apprentissage se fait en enraînant deux réseaux simultanément dans un *zero sum game* ou jeu à somme nulle. **G** et **D** sont donc adversaires dans un jeu où les gains de l'un sont la perte de l'autre. Le but du jeu va être de différencier les données produites par **G** de données déjà existantes venant d'une base de données. **D** aura donc pour labels *vrai* et *générée*, et devra attribuer correctement ces labels tandis que **G** aura pour objectif de faire en sorte que **D** se trompe dans sa clasification.
+Notre architecture de GANs est donc constituée d'un réseau génératif **G**, produisant des données à partir d'un vecteur aléatoire du *latent space* et d'un réseau classifieur **D** prenant en entrée une donnée et en sortie nous donne un label correspondant à la classe de l'objet. Il nous reste à voir le processus d'apprentissage, et c'est là que l'adjectif *adversarial* va prendre sens. En effet le principe innovant des GANs réside dans le fait que l'apprentissage se fait en enraînant deux réseaux simultanément dans un *zero sum game* ou jeu à somme nulle. **G** et **D** sont donc adversaires dans un jeu où les gains de l'un sont la perte de l'autre. Le but du jeu va être de différencier les données produites par **G** de données déjà existantes venant d'une base de données.
 
 ![Schéma du processus d'apprentissage](/public/images/schema_appr.png)
 <em>Schéma du processus d'apprentissage</em>
 
-Ce jeu peut être vu comme l'affrontement d'un faussaire et d'un détective. Le faussaire génère de la fausse monnaie en essayant tromper le détective tandis que ce dernier essaie de distinguer les faux billets des vrais. 
+**D** aura donc pour labels *vraie* et *générée*, et devra attribuer correctement ces labels tandis que **G** aura pour objectif de faire en sorte que **D** se trompe dans sa clasification. Il s'agit donc d'un jeu de type minimax, où **D** essaie de maximiser son taux de réussite tandis que **G** essaie de le minimiser. Les deux réseaux vont alors utiliser la méthode de deep learning classique : la rétropropagation du gradient.
+**D** va donc faire une ascencion de gradient, de la forme suivante :
+
+![ascent_gradient](/public/images/ascent_gradient.png)
+<p class="message">
+où <i>D</i>(<b>x</b>) est la probabilité que <b>D</b> classe <b>x</b> comme une vraie image, et <i>G</i>(<b>z</b>) est une image générée par <b>G</b> à partie de <b>z</b>. Le terme de gauche de la somme correspond donc à optimiser la probilité qu'une vraie image <b>x</b> soit classée <i>vraie</i> et le terme de droite correspond à optimiser la probabilité qu'une image générée <i>G</i>(<b>z</b>) ne soit pas classée <i>vraie</i>.
+</p>
+
+**G** va lui effectuer une descente de gradient de la forme suivante :
+
+<img src="/public/images/descent_gradient.png" alt="descent_gradient" style="width: 500px;"/>
+<p class="message">
+où on va donc minimiser la probablité que l'image générée <i>G</i>(<b>z</b>) ne soit pas classé <i>vraie</i>, ce qui revient donc à maximiser la probablilité qu'elle soit classée <i>vraie</i>.
+</p>
+
+Ce jeu peut être vu comme l'affrontement d'un faussaire et d'un détective. Le faussaire génère de la fausse monnaie en essayant tromper le détective tandis que ce dernier essaie de distinguer les faux billets des vrais. S'ils jouent l'un contre l'autre, leur compétition est bénéfique pour les perforamnces de chacun, en effet plus le détective devient efficace dans sa découverte de la fausse monnaie, plus le faussaire doit améliorer l'aspect de sa fausse monnaie pour pouvoir l'écouler. Inversement plus le faussaire devient doué et plus le détective doit soigner sa méthode d'examination pour repérer les faux billets. En pratique les compétences des deux réseaux aumentent progressivement jusqu'à ce que **D** soit aussi compétent qu'un humain et donc que **G** en parvenant à le tromper parvient également à nous tromper. De plus, la rétropropagation du gradient se faisant à travers **D** puis **G**, ce dernier profite de la connaissance du gradient de **D** pour pouvoir améliorer les points qui l'ont trahi. Il peut donc se concentrer sur ses faiblesses ce qui rend son apprentissage plus efficace.
+
+A titre d'exemple, voilà ci-dessous des images de visages générées par un réseau entrainé par les chercheurs de chez Nvidia ainsi que des images réelles de la banque d'image CelebA utilisée lors de l'apprentissage.
+
+![result_faces](/public/images/result_faces.png)
+
+Si certaines des images générées présentent des aberrations qui ne nous trompent pas le moins du monde, force est de constater que certaines sont bluffantes de réalisme.
+
+## Avantages
+
+### Un apprentissage non supervisé
+
+Ce procédé a pour premier avantage d'être un apprentissage de type **non supervisé**. En effet en décrivant le fonctionnement des réseaux classifieurs on avait souligné le besoin de données préalablement labélisées afin de pouvoir enseigner au réseau à correctement classer. Hors ici aussi on utilise un réseau classifieur, à savoir **D**, cependant ici les classes correspondent à l'origine des images : *vraie* pour celle venant de la base de donnée et *générée* pour celles produites par **G**. Ces labels sont donc générés automatiquement et ne requiert pas qu'un opérateur humain annote à la main chaque image, ce qui est toujours un gain de temps immense. Il faut cependant tempérer cet avantage car si effectivement on n'a pas besoin d'annoter de données, il faut toutefois disposer d'une base de données avec laquelle comparer celles provenant de **G**, et le travail de sélection et collection de données correspondant à ce que l'on souhaite produire n'est pas toujours négligeable non plus.
+
+
+### Exploitation du *latent space*
+
+On l'a vu, lors de l'apprentissage, on utilise des vecteurs **z** pris aléatoirement dans le *latent space* comme donnée d'entrée pour **G**. On a également dit que ce *latent space* correspond aux caractéristiques de l'image et que cette correspondance se construit au fur et à mesure que le réseau apprend. Cela signifie qu'une fois le réseau entraîné, on peut essayer de retrouver cette description des caractéristiques en regardant comment une influence sur **z** influe sur la donnée produite. Et en effet en gardant le réseau de Nvidia, et en translatant d'un point **z0** à un point **z1** dans le *latent space*, on constate que les images sorties sont une translation continue entre le visage produit par **z0** et celui produit par **z1** comme le montre la figure ci-dessous.
+
+![translate_faces](/public/images/translate_faces.gif)
+<em>Translation dans le latent space</em>
+
+On comprend donc que se déplacer dans le *latent space* modifie continuement la sortie, en modifiant les caractéristiques du visage produit. Pour exploiter cela, il faut pouvoir identifier quel vecteur du *latent space* correspond à quelle caractéristique. Pour ce faire on peut conserver pour chaque image générée sont vecteur latent **z**, puis sélectionner toutes les images ayant la caractéristique à repérer et prendre la moyenne des vecteurs ayant générer ces images. Ce qui devient alors fabuleux c'est que des opérations arithmétiques sur ces vecteurs latents typiques de caractéristiques se traduisent par des opérations sémantiques sur les images produites. Par exemple sur la figure ci-dessous on illustre l'opération suivante : on a repéré toutes les images d'homme à lunettes, on fait leur moyenne et on obtient le vecteur latent de l'homme à lunette moyen (et son image assoviée) ; on fait de même  avec les hommes sans lunettes et les femmes sans lunettes. Puis en générant des images à partir du vecteur **z**=**z_homme_lunettes**-**z_homme**+**z_femme**, on obtient des images de femme à lunettes.
+
+![translate_faces](/public/images/operation_faces.png)
+<em>Opération arithmétique dans le latent space</em>
+
+Cette opération témoigne de la capacité du réseau à construire une représentation de la distribution des données dans le *latent space* qui traduit de façon vectorielle des concepts sémantiques. Le réseau semble donc développer une réelle compréhension sémantique des caractéristiques des données, ce qui addresse le problème du sens dans l'IA, et consiste peut être en un pas vers la conception d'IA apréhendant réellement le sens des données plutôt que de simplement manipuler des symboles abstraits.
+
+## Limites
