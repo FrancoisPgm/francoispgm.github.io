@@ -34,7 +34,7 @@ Il est maintenant temps de développer le sous-titre de ce site : "*quand les ma
 <img src="/public/images/rondo_veneziano.jpg" alt="IA_musician" style="width: 500px;"/>
 </div>
 
-Cette incursion des machines au sein des caractéristiques "propres à l'humain" peut donc être perçue comme un argument en faveur de la thèse matérialiste selon laquelle la conscience est un phénomène ne reposant que sur des principes physique. Certains voient alors dans les IA capables de générer des peintures ou des mélodies non sans intérêt artistique, les prémices de consciences artificielles qui éventuellement finiront par réfléchir et dialoguer avec les hommes sur un pied d'égalité intellectuelle.
+Cette incursion des machines au sein des caractéristiques "propres à l'humain" peut donc être perçue comme un argument en faveur de la thèse matérialiste selon laquelle la conscience est un phénomène ne reposant que sur des principes physiques. Certains voient alors dans les IA capables de générer des peintures ou des mélodies non sans intérêt artistique, les prémices de consciences artificielles qui éventuellement finiront par réfléchir et dialoguer avec les hommes sur un pied d'égalité intellectuelle.
 
 Se pourrait-il que les GANs soient une étape vers la création d'une conscience artificielle, et que grâce à eux on sache un jour si les androïdes rêvent de moutons électriques ?
 
